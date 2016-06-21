@@ -45,9 +45,11 @@ namespace DoAnCDCL
 
         private void rtbIn_TextChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty("rtbIn.Text")){
+            
+            if(!string.IsNullOrEmpty(rtbIn.Text)){
             string output = StopWordTool.RemoveStopwords(rtbIn.Text);
-            rtbOut.Text = output;}
+            rtbOut.Text = output;
+            }
         }
     }
 }
