@@ -37,6 +37,7 @@
             this.rtbFound = new System.Windows.Forms.RichTextBox();
             this.txtNumberWord = new System.Windows.Forms.TextBox();
             this.btnTrongSo = new System.Windows.Forms.Button();
+            this.indexQuery = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -106,9 +107,9 @@
             // 
             // txtNumberWord
             // 
-            this.txtNumberWord.Location = new System.Drawing.Point(1020, 296);
+            this.txtNumberWord.Location = new System.Drawing.Point(972, 296);
             this.txtNumberWord.Name = "txtNumberWord";
-            this.txtNumberWord.Size = new System.Drawing.Size(185, 20);
+            this.txtNumberWord.Size = new System.Drawing.Size(233, 20);
             this.txtNumberWord.TabIndex = 6;
             // 
             // btnTrongSo
@@ -121,11 +122,22 @@
             this.btnTrongSo.UseVisualStyleBackColor = true;
             this.btnTrongSo.Click += new System.EventHandler(this.btnTrongSo_Click);
             // 
+            // indexQuery
+            // 
+            this.indexQuery.Location = new System.Drawing.Point(928, 476);
+            this.indexQuery.Name = "indexQuery";
+            this.indexQuery.Size = new System.Drawing.Size(75, 23);
+            this.indexQuery.TabIndex = 8;
+            this.indexQuery.Text = "button2";
+            this.indexQuery.UseVisualStyleBackColor = true;
+            this.indexQuery.Click += new System.EventHandler(this.indexQuery_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1241, 502);
+            this.Controls.Add(this.indexQuery);
             this.Controls.Add(this.btnTrongSo);
             this.Controls.Add(this.txtNumberWord);
             this.Controls.Add(this.rtbFound);
@@ -154,6 +166,7 @@
         private System.Windows.Forms.RichTextBox rtbFound;
         private System.Windows.Forms.TextBox txtNumberWord;
         private System.Windows.Forms.Button btnTrongSo;
+        private System.Windows.Forms.Button indexQuery;
     }
 }
 

@@ -66,6 +66,29 @@ namespace DoAnCDCL
             return string.Join("_", filename.Split(System.IO.Path.GetInvalidFileNameChars()));
 
         }
+        public void IndexAllData()
+        {
+            iNumberDoc = 0;
+            lTrongSo = new List<Dictionary<string, double>>();
+            soVanBanChua = new Dictionary<string, int>();
+            string path = @"./Data";
+            if (Directory.Exists(path))
+            {
+
+                string[] fPath = Directory.GetFiles(path);
+                for (int i = 0; i < fPath.Count(); i++)
+                {
+                    if (File.Exists(fPath[i]))
+                    {
+                        string Doc = File.ReadAllText(fPath[i]);
+                        danhTF(Doc);
+                        lTrongSo.Add(trongSo);
+                        iNumberDoc++;
+                    }
+                }
+                danhTrongSo();
+            }
+        }
         public void getAllData()
         {
             iNumberDoc = 0;
@@ -95,7 +118,7 @@ namespace DoAnCDCL
                     string strOut = "";
                     foreach (var v in doc)
                     {
-                        strOut += "Key : " + v.Key + " - TF : " + v.Value.ToString() + "\n";
+                        strOut += "Key=" + v.Key + ", TFIDF=" + v.Value.ToString() + ", Documentlink=" + fPath[iPath] + ";\n";
                     }
                     try
                     {
@@ -148,6 +171,34 @@ namespace DoAnCDCL
                 }
             }
 
-        
+        public double getidf(string key)
+        {
+            double kq=1;
+            foreach(var v in soVanBanChua)
+            {
+                if(soVanBanChua.ContainsKey(key))
+                {
+                     kq = Math.Log10((double)iNumberDoc / soVanBanChua[key]);
+                }
+                else
+                {
+                    kq = 1;
+                }
+            }
+            return kq;
+        }
+
+        public Dictionary<string,double> indexQuery(string input)
+        {
+            StopWordTool NLP = new StopWordTool();
+            NLP.RemoveStopwords(input);
+            Dictionary<string, double> kq = new Dictionary<string, double>();
+            foreach(var v in NLP.found)
+            {
+                double value = (double)v.Value / NLP.iNumberWord * getidf(v.Key);
+                kq.Add(v.Key, value);
+            }
+            return kq;
+        }
     }
 }

@@ -91,5 +91,20 @@ namespace DoAnCDCL
             string str = "";
             
         }
+
+        private void indexQuery_Click(object sender, EventArgs e)
+        {
+            TrongSoWord tSo = new TrongSoWord();
+            tSo.IndexAllData();
+            Dictionary<string,double> iQuery= tSo.indexQuery(txtNumberWord.Text);
+            string str = "";
+            foreach(var v in iQuery)
+            {
+                str += "Key=" + v.Key + ", Value=" + v.Value + ";\n";
+
+            }
+            rtbFound.Text = str;
+
+        }
     }
 }
