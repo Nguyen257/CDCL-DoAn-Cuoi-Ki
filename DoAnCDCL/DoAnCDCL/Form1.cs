@@ -13,6 +13,7 @@ namespace DoAnCDCL
     public partial class Form1 : Form
     {
         StopWordTool NLP;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,15 +22,30 @@ namespace DoAnCDCL
 
         private void btnTranfer_Click(object sender, EventArgs e)
         {
-            string path = @"./Data/0000002";
-            if(File.Exists(path))
+            /*
+            string path = @"./Data";
+            if(Directory.Exists(path))
             {
-                string str = File.ReadAllText(path);
-                rtbIn.Text = str;
-
-                
-
-            }
+                Directory.CreateDirectory("Output");
+                string[] fPath = Directory.GetFiles(path);
+                for(int i=0;i<fPath.Count();i++)
+                {
+                    if(File.Exists(fPath[i]))
+                    {
+                        string Doc = File.ReadAllText(fPath[i]);
+                        string[] temp = fPath[i].Split(new string[] { "Data/","\\" }, StringSplitOptions.None);
+                        temp[1].Trim();
+                        string outPath ="./Output/"+GetSafeFilename(temp[1].Trim());
+                        TrongSoWord tSo = new TrongSoWord();
+                        tSo.danhTrongSo(Doc, outPath);
+                        iNumberDoc++;
+                    }
+                }
+            }*/
+            TrongSoWord tSo = new TrongSoWord();
+            tSo.getAllData();
+            System.Diagnostics.Process.Start(@".\Output\");
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,7 +81,7 @@ namespace DoAnCDCL
         private void btnTrongSo_Click(object sender, EventArgs e)
         {
             TrongSoWord tSo = new TrongSoWord();
-            tSo.danhTrongSo(rtbIn.Text);
+            //tSo.danhTF(rtbIn.Text, @"./Data");
             string output = "";
             foreach(var v in tSo.trongSo)
             {
