@@ -31,5 +31,23 @@ namespace DoAnCDCL
 
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string output = StopWordTool.RemoveStopwords(rtbIn.Text);
+            rtbOut.Text = output;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rtbIn_TextChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty("rtbIn.Text")){
+            string output = StopWordTool.RemoveStopwords(rtbIn.Text);
+            rtbOut.Text = output;}
+        }
     }
 }

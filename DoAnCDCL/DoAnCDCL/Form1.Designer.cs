@@ -30,9 +30,10 @@
         {
             this.btnTranfer = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.rtbIn = new System.Windows.Forms.RichTextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.rtbOut = new System.Windows.Forms.RichTextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -43,7 +44,7 @@
             this.btnTranfer.Name = "btnTranfer";
             this.btnTranfer.Size = new System.Drawing.Size(75, 23);
             this.btnTranfer.TabIndex = 0;
-            this.btnTranfer.Text = "button1";
+            this.btnTranfer.Text = "TranInput";
             this.btnTranfer.UseVisualStyleBackColor = true;
             this.btnTranfer.Click += new System.EventHandler(this.btnTranfer_Click);
             // 
@@ -55,14 +56,6 @@
             this.panel1.Size = new System.Drawing.Size(593, 441);
             this.panel1.TabIndex = 1;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.rtbOut);
-            this.panel2.Location = new System.Drawing.Point(612, 13);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(593, 441);
-            this.panel2.TabIndex = 2;
-            // 
             // rtbIn
             // 
             this.rtbIn.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -71,6 +64,15 @@
             this.rtbIn.Size = new System.Drawing.Size(593, 441);
             this.rtbIn.TabIndex = 0;
             this.rtbIn.Text = "";
+            this.rtbIn.TextChanged += new System.EventHandler(this.rtbIn_TextChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.rtbOut);
+            this.panel2.Location = new System.Drawing.Point(612, 13);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(593, 441);
+            this.panel2.TabIndex = 2;
             // 
             // rtbOut
             // 
@@ -81,16 +83,28 @@
             this.rtbOut.TabIndex = 0;
             this.rtbOut.Text = "";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(684, 476);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Tran";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1241, 502);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnTranfer);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -104,6 +118,7 @@
         private System.Windows.Forms.RichTextBox rtbIn;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RichTextBox rtbOut;
+        private System.Windows.Forms.Button button1;
     }
 }
 
