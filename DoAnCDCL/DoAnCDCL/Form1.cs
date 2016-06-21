@@ -22,15 +22,12 @@ namespace DoAnCDCL
         private void btnTranfer_Click(object sender, EventArgs e)
         {
             string path = @"./Data/0000002";
-            string pathout = @"./Data/out01";
             if(File.Exists(path))
             {
                 string str = File.ReadAllText(path);
                 rtbIn.Text = str;
 
-                string output = NLP.RemoveStopwords(str);
-
-                rtbOut.Text = output;
+                
 
             }
         }
@@ -58,11 +55,25 @@ namespace DoAnCDCL
 
         private void rtbIn_TextChanged(object sender, EventArgs e)
         {
-            
+            /*
             if(!string.IsNullOrEmpty(rtbIn.Text)){
             string output = NLP.RemoveStopwords(rtbIn.Text);
             rtbOut.Text = output;
+            }*/
+        }
+
+        private void btnTrongSo_Click(object sender, EventArgs e)
+        {
+            TrongSoWord tSo = new TrongSoWord();
+            tSo.danhTrongSo(rtbIn.Text);
+            string output = "";
+            foreach(var v in tSo.trongSo)
+            {
+                output += "Key : " + v.Key + " - TF : " + v.Value.ToString() + "\n";
             }
+            rtbOut.Text = output;
+            string str = "";
+            
         }
     }
 }

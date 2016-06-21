@@ -198,7 +198,8 @@ namespace DoAnCDCL
 	' ',
 	',',
 	';',
-	'.'
+	'.',
+    '(',')','[',']'
     };
         #endregion
         public static string removeSC(string input)

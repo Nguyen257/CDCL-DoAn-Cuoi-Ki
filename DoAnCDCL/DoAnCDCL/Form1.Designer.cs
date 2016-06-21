@@ -36,6 +36,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.rtbFound = new System.Windows.Forms.RichTextBox();
             this.txtNumberWord = new System.Windows.Forms.TextBox();
+            this.btnTrongSo = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -110,11 +111,22 @@
             this.txtNumberWord.Size = new System.Drawing.Size(185, 20);
             this.txtNumberWord.TabIndex = 6;
             // 
+            // btnTrongSo
+            // 
+            this.btnTrongSo.Location = new System.Drawing.Point(786, 476);
+            this.btnTrongSo.Name = "btnTrongSo";
+            this.btnTrongSo.Size = new System.Drawing.Size(122, 23);
+            this.btnTrongSo.TabIndex = 7;
+            this.btnTrongSo.Text = "DanhTrongSO";
+            this.btnTrongSo.UseVisualStyleBackColor = true;
+            this.btnTrongSo.Click += new System.EventHandler(this.btnTrongSo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1241, 502);
+            this.Controls.Add(this.btnTrongSo);
             this.Controls.Add(this.txtNumberWord);
             this.Controls.Add(this.rtbFound);
             this.Controls.Add(this.button1);
@@ -141,6 +153,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox rtbFound;
         private System.Windows.Forms.TextBox txtNumberWord;
+        private System.Windows.Forms.Button btnTrongSo;
     }
 }
 
