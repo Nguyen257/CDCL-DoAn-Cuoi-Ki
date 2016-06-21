@@ -254,6 +254,7 @@ namespace DoAnCDCL
             /* step6() removes a final -e if m() > 1. */
             private void Step6()
             {
+                
                 stemIndex = endIndex;
 
                 if (wordArray[endIndex] == 'e')

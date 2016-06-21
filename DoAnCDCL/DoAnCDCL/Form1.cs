@@ -12,9 +12,11 @@ namespace DoAnCDCL
 {
     public partial class Form1 : Form
     {
+        StopWordTool NLP;
         public Form1()
         {
             InitializeComponent();
+            NLP   = new StopWordTool();
         }
 
         private void btnTranfer_Click(object sender, EventArgs e)
@@ -25,7 +27,8 @@ namespace DoAnCDCL
             {
                 string str = File.ReadAllText(path);
                 rtbIn.Text = str;
-                string output = StopWordTool.RemoveStopwords(str);
+
+                string output = NLP.RemoveStopwords(str);
 
                 rtbOut.Text = output;
 
@@ -34,8 +37,18 @@ namespace DoAnCDCL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string output = StopWordTool.RemoveStopwords(rtbIn.Text);
+            NLP = new StopWordTool();
+            string output = NLP.RemoveStopwords(rtbIn.Text);
+            
             rtbOut.Text = output;
+
+            string str = "";
+            foreach ( var v in NLP.found)
+            {
+                str += "Key : " + v.Key + " - Value : " + v.Value + "\n";
+            }
+            rtbFound.Text = str;
+            txtNumberWord.Text = NLP.iNumberWord.ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -47,7 +60,7 @@ namespace DoAnCDCL
         {
             
             if(!string.IsNullOrEmpty(rtbIn.Text)){
-            string output = StopWordTool.RemoveStopwords(rtbIn.Text);
+            string output = NLP.RemoveStopwords(rtbIn.Text);
             rtbOut.Text = output;
             }
         }

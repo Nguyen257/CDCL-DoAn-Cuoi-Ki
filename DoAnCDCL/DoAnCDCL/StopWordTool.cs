@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DoAnCDCL
 {
-    public static class StopWordTool
+    public  class StopWordTool
     {
+        #region Khai bao bien
+        public  Dictionary<string, int> found;
+        public int iNumberWord;
+        #endregion
+
         #region StopWords
         static Dictionary<string, bool> _stops = new Dictionary<string, bool>
          {
@@ -210,7 +215,19 @@ namespace DoAnCDCL
             return str2;
         }
 
-        public static string RemoveStopwords(string input)
+        private static void addOrUpdate(Dictionary<string,int> dic, string key)
+        {
+            if(dic.ContainsKey(key))
+            {
+                dic[key] += 1;
+            }
+            else
+            {
+                dic[key] = 1;
+            }
+        }
+
+        public  string RemoveStopwords(string input)
         {
             input = removeSC(input);
             // 1
@@ -218,7 +235,8 @@ namespace DoAnCDCL
             var words = input.Split(_delimiters,StringSplitOptions.RemoveEmptyEntries);
             // 2
             // Allocate new dictionary to store found words
-            var found = new Dictionary<string, bool>();
+            found = new Dictionary<string, int>();
+            iNumberWord = 0;
             // 3
             // Store results in this StringBuilder
             StringBuilder builder = new StringBuilder();
@@ -237,13 +255,18 @@ namespace DoAnCDCL
                     PorterStemmer poster = new PorterStemmer();
                     string strPoster = poster.StemWord(currentWord);
                     builder.Append(strPoster).Append(' ');
-                    if (!found.ContainsKey(lowerWord))
-                    found.Add(lowerWord, true);
+                    iNumberWord++;
+                    addOrUpdate(found, lowerWord);
                 }
             }
             // 7
             // Return string with words removed
             return builder.ToString().Trim();
+        }
+
+        public StopWordTool()
+        {
+            // TODO: Complete member initialization
         }
     }
 }
