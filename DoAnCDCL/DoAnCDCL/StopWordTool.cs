@@ -375,10 +375,10 @@ namespace DoAnCDCL
                 
                 // 6
                 // If this is a usable word, add it
-                if (!_stops.ContainsKey(lowerWord) &&
-                !found.ContainsKey(lowerWord))
+                if (!_stops.ContainsKey(lowerWord))
                 {
                     builder.Append(currentWord).Append(' ');
+                    if (!found.ContainsKey(lowerWord))
                     found.Add(lowerWord, true);
                 }
             }
