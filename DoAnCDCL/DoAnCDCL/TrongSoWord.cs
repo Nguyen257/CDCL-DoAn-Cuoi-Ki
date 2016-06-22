@@ -14,7 +14,7 @@ namespace DoAnCDCL
         public VectorWord trongSo { get; set; }
         public Dictionary<string, int> tapTuVung { get; set; }
         int iNumberDoc;
-        public List<VectorWord> lTrongSo { get; set; }
+        public List<VectorWord> lDocument { get; set; }
         public int check;
         //public List<string> lKey { get; set; }
 
@@ -23,7 +23,7 @@ namespace DoAnCDCL
             trongSo = null;
             tapTuVung = null;
             iNumberDoc = 0;
-            lTrongSo = null;
+            lDocument = null;
             check = -1;
         }
 
@@ -59,9 +59,9 @@ namespace DoAnCDCL
         }
         public void danhDF()
         {
-            if (lTrongSo.Count > 0)
+            if (lDocument.Count > 0)
             {
-                foreach (var doc in lTrongSo)
+                foreach (var doc in lDocument)
                 {
                     foreach (var kv in doc.VectorW)
                     {
@@ -169,9 +169,8 @@ namespace DoAnCDCL
         }*/
         public void getAllData()
         {
-            check = 1;
             iNumberDoc = 0;
-            lTrongSo = new List<VectorWord>();
+            lDocument = new List<VectorWord>();
             tapTuVung = new Dictionary<string, int>();
             string path = @"./Data";
             if (Directory.Exists(path))
@@ -188,54 +187,57 @@ namespace DoAnCDCL
                         trongSo.stt = i;
                         trongSo.urlDoc = fPath[i];
                         //Lưu vector trongSo vào list vector của tất cả văn bản
-                        lTrongSo.Add(trongSo);
+                        lDocument.Add(trongSo);
                         //Lưu ý vector lúc này có Value(double) chỉ mới là Tf của word thôi
                         iNumberDoc++;
                     }
                 }
                 // Đánh lại giá trị Value của vector để lưu thành tf-idf
                 danhTrongSo();
-
-
-                Directory.CreateDirectory("Output");
-                int iPath = 0;
-                foreach (var doc in lTrongSo)
-                {
-                    double LengthDoc = getLengthDoc(doc);
-                    string strOut = "LengthDoc=" + LengthDoc.ToString() + ";\n" + "Documentlink=" + fPath[iPath] + ";\n";
-                    foreach (var v in doc.VectorW)
-                    {
-                        strOut += "Key=" + v.Key + ", TFIDF=" + v.Value.ToString()  + ";\n";
-                    }
-                    try
-                    {
-
-                        string[] temp = fPath[iPath].Split(new string[] { "Data/", "\\" }, StringSplitOptions.None);
-                        string outPath = "./Output/" + GetSafeFilename(temp[1].Trim());
-                        System.IO.File.WriteAllText(outPath, strOut);
-                        iPath++;
-                    }
-                    catch
-                    {
-                        check = 0;
-                    }
-                    
-                }
-                string outPathListKey = "./Output/ListKey.txt";
-                try
-                {
-                    System.IO.File.WriteAllLines(outPathListKey, tapTuVung.Keys);
-                }
-                catch
-                {
-                    check = -2;
-                }
+                check = 1;
+                writeOutput();
+                
+                
 
             }
 
         }
 
-        
+        public void writeOutput()
+        {
+            Directory.CreateDirectory("Output");
+            foreach (var doc in lDocument)
+            {
+                double LengthDoc = getLengthDoc(doc);
+                string strOut = "ID :" + doc.stt.ToString() +", LengthDoc=" + LengthDoc.ToString() + ";\n" + "Documentlink=" + doc.urlDoc + ";\n";
+                foreach (var v in doc.VectorW)
+                {
+                    strOut += "Key=" + v.Key + ", TFIDF=" + v.Value.ToString() + ";\n";
+                }
+                try
+                {
+
+                    string[] temp = doc.urlDoc.Split(new string[] { "Data/", "\\" }, StringSplitOptions.None);
+                    string outPath = "./Output/" + GetSafeFilename(temp[1].Trim());
+                    System.IO.File.WriteAllText(outPath, strOut);
+                }
+                catch
+                {
+                    check = 0;
+                }
+
+            }
+
+            string outPathListKey = "./Output/ListKey.txt";
+            try
+            {
+                System.IO.File.WriteAllLines(outPathListKey, tapTuVung.Keys);
+            }
+            catch
+            {
+                check = -2;
+            }
+        }
 
         public void danhTrongSo()
         {
@@ -243,13 +245,13 @@ namespace DoAnCDCL
                 danhDF();
 
                 //Đánh lại trọng số của mỗi Word trong VectorWord của mỗi Văn bản (lúc này là tf-idf)
-                for (int i = 0; i < lTrongSo.Count;i++)
+                for (int i = 0; i < lDocument.Count;i++)
                 {
-                    for (int j = 0; j < lTrongSo[i].VectorW.Count;j++ )
+                    for (int j = 0; j < lDocument[i].VectorW.Count;j++ )
                     {
-                        var kv =lTrongSo[i].VectorW.ElementAt(j);
+                        var kv =lDocument[i].VectorW.ElementAt(j);
                         double value = kv.Value * Math.Log10((double)iNumberDoc / tapTuVung[kv.Key]);
-                        lTrongSo[i].VectorW[kv.Key] = value;
+                        lDocument[i].VectorW[kv.Key] = value;
                     }
                 }
         }
@@ -276,12 +278,13 @@ namespace DoAnCDCL
             VectorWord vQuery = new VectorWord();
             vQuery = indexQuery(input);
             List<string> lKey = new List<string>(tapTuVung.Keys);
-            foreach (var v in lTrongSo)
+            foreach (var v in lDocument)
             {
                 double tuso = 0;
                 double mauso = 0;
                 foreach (var k in lKey)
                 {
+                    //tử số sẽ là tf-idf của mỗi word(trong tập từ vựng) trong Query nhân với tf-idf mỗi word trong v(lúc này là một document)
                     tuso += getWeight(k, vQuery) * getWeight(k, v);
                 }
                 mauso = getLengthDoc(vQuery) * getLengthDoc(v);
