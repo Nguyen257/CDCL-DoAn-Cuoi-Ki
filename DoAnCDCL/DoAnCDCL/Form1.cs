@@ -69,7 +69,7 @@ namespace DoAnCDCL
                     tinhTuongDong = tSo.tinhCosin(rtbQuery.Text);
                     string output = "";
                     int i =1;
-                    var sortedDict = from entry in tinhTuongDong orderby entry.Value descending select entry;
+                    var sortedDict = (from entry in tinhTuongDong orderby entry.Value descending select entry).Take(10);
                     foreach (var v in sortedDict)
                     {
                         output += i.ToString() + ">> Văn bản link :" + v.Key + ", Độ tương đồng :" + v.Value.ToString() + ";\n";
