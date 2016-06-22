@@ -275,11 +275,11 @@ namespace DoAnCDCL
             Dictionary<string,double> kq = new Dictionary<string,double>();
             VectorWord vQuery = new VectorWord();
             vQuery = indexQuery(input);
-            double tuso = 0;
-            double mauso = 1;
             List<string> lKey = new List<string>(tapTuVung.Keys);
             foreach (var v in lTrongSo)
             {
+                double tuso = 0;
+                double mauso = 0;
                 foreach (var k in lKey)
                 {
                     tuso += getWeight(k, vQuery) * getWeight(k, v);
